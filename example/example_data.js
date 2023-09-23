@@ -3,7 +3,7 @@ let example_data = {
 		{
 			type: "header",
 			data: {
-				text: "Example: @juratbek/editorjs-quiz",
+				text: "Example: code plugin",
 				level: 3,
 			},
 		},
@@ -17,24 +17,11 @@ let example_data = {
 			type: "delimiter",
 		},
 		{
-			type: "quiz",
+			type: "code",
 			data: {
-				"variants": [
-					{
-						"value": 0,
-						"text": "Helo"
-					},
-					{
-						"value": 1,
-						"text": "Hi"
-					},
-					{
-						"value": 2,
-						"text": "Good morning"
-					}
-				],
-				"answers": [1],
-				"type": "singleSelect"
+				code: "console.log('Hello World!');",
+				language: "javascript",
+				showLineNumbers: true,
 			}
 		}
 	],

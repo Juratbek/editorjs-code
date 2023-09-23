@@ -24,6 +24,6 @@ module.exports = {
     clean: true,
     libraryTarget: "umd",
     libraryExport: "default",
-    library: "Quiz"
+    library: "Code"
   },
 };

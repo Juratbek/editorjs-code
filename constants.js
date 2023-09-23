@@ -1,27 +1,27 @@
-import { CheckboxIcon, QuizIcon, RadioInputIcon } from "./icons";
+import { CodeIcon } from "./icons";
 
 export const TYPES = {
   singleSelect: "singleSelect",
   multiSelect: "multiSelect",
 };
 
-export const settings = [
-  {
-    name: "Single Select",
-    type: TYPES.singleSelect,
-    icon: RadioInputIcon,
-    className: "qt-settings-icon__single",
-  },
-  {
-    name: "Multi Select",
-    type: TYPES.multiSelect,
-    icon: CheckboxIcon,
-  },
-];
+// export const settings = [
+//   {
+//     name: "Single Select",
+//     type: TYPES.singleSelect,
+//     icon: RadioInputIcon,
+//     className: "qt-settings-icon__single",
+//   },
+//   {
+//     name: "Multi Select",
+//     type: TYPES.multiSelect,
+//     icon: CheckboxIcon,
+//   },
+// ];
 
 export const Toolbox = {
-  title: "Quiz",
-  icon: QuizIcon,
+  title: "Code",
+  icon: CodeIcon,
 };
 
 export const LANGUAGES = ["uz", "en"];
