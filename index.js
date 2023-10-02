@@ -1,11 +1,11 @@
-import {  settings, Toolbox } from "./constants";
-import {basicSetup, EditorView} from "codemirror"
-import {EditorState, Compartment} from "@codemirror/state"
-import { javascript } from "@codemirror/lang-javascript"
-import {
-  renderSettings,
-} from "./utils";
+import { EditorView } from "@codemirror/view"
+import { EditorState, Compartment } from "@codemirror/state"
+import {basicSetup} from "codemirror";
+
+import {COMPLETED_COPY_BUTTON_SVG, COPY_BUTTON_SVG, LANGUAGES, Toolbox} from "./constants";
 import "./index.scss";
+
+const languageConf = new Compartment
 
 class Code {
 
@@ -31,31 +31,56 @@ class Code {
     return Toolbox;
   }
 
-  render() {
-    const container = document.createElement("div");
-    container.className = "code-tool-container";
 
-    let language = new Compartment, tabSize = new Compartment
 
-    let state = EditorState.create({
-      doc: this.data.code,
-      extensions: [
-        basicSetup,
-        language.of(javascript()),
-        tabSize.of(EditorState.tabSize.of(8)),
-      ]
-    })
+  mountCodeMirror = async () => {
 
     this.codeMirrorInctance = new EditorView({
-      state,
-      parent: container
+      extensions: [
+          basicSetup,
+          EditorState.readOnly.of(this.readOnly),
+          LANGUAGES[this.data.language]()
+      ],
+      doc: this.data.code,
+      parent: this.container
     })
-
-    return container;
   }
 
-  updateLanguageMode(mode) {
-    this.codeMirrorInctance.setOption('mode', mode);
+  render() {
+    this.container = document.createElement("div");
+    this.container.className = "editorjs-code__container";
+
+    this.mountCodeMirror()
+
+    this.langDisplay = document.createElement('div');
+    this.langDisplay.classList.add('editorjs-code__langDisplay')
+    let copyButton = document.createElement('button')
+    copyButton.classList.add("editorjs-code__copyButton");
+    copyButton.innerHTML = COPY_BUTTON_SVG;
+    this.langDisplay.innerHTML = this.data.language
+
+    copyButton.addEventListener("click",async () => {
+      copyButton.innerHTML = COMPLETED_COPY_BUTTON_SVG;
+      try {
+        await navigator.clipboard.writeText(this.codeMirrorInctance.state.doc.toString());
+      } finally {
+        setTimeout(()=>{
+          copyButton.innerHTML = COPY_BUTTON_SVG;
+        },1000)
+      }
+    });
+
+    this.container.appendChild(this.langDisplay)
+    this.container.appendChild(copyButton)
+
+    const languageDropdown = this.dropdownRender()
+    this.langDisplay.addEventListener("click", (() => {
+        languageDropdown.classList.toggle('show')
+    }))
+
+    this.container.appendChild(languageDropdown)
+
+    return this.container;
   }
 
   // renderSettings = () => {
@@ -71,6 +96,48 @@ class Code {
     return {
       patterns: { code: /```([\s\S]+?)```/ },
     };
+  }
+
+  handleLanguageChange = (e) => {
+    this.data.language = e
+    this.langDisplay.innerText = e
+    console.log(e)
+
+    console.log(this.codeMirrorInctance)
+    console.log(LANGUAGES[e])
+    // this.codeMirrorInctance.dispatch({
+    //   effects: languageConf.reconfigure(LANGUAGES[e]())
+    // })
+
+  }
+
+  dropdownRender = () => {
+    const wrapper = document.createElement("div");
+    wrapper.className = "cdx-editor-dropdown";
+    const input = document.createElement("input");
+    input.className = "cdx-editor-dropdown__input";
+    input.type = "text"
+    input.id = "searchInput"
+    input.placeholder = "Search language"
+
+    const dropdownContent = document.createElement("div");
+    dropdownContent.className = "cdx-editor-dropdown__content";
+    dropdownContent.id = "dropdownContent"
+    Object.keys(LANGUAGES).forEach((lang) => {
+      const item = document.createElement("a");
+      item.addEventListener("click", () => {
+        this.handleLanguageChange(lang)
+        wrapper.classList.remove('show');
+      })
+      item.href = "#"
+      item.innerText = lang
+      dropdownContent.appendChild(item)
+    })
+
+    wrapper.appendChild(input);
+    wrapper.appendChild(dropdownContent)
+
+    return wrapper
   }
 
 

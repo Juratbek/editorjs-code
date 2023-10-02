@@ -15,7 +15,7 @@ module.exports = {
           "css-loader",
           "sass-loader",
         ],
-      }
+      },
     ],
   },
   output: {
@@ -24,6 +24,7 @@ module.exports = {
     clean: true,
     libraryTarget: "umd",
     libraryExport: "default",
-    library: "Code"
+    library: "Code",
+    publicPath: "/"
   },
 };

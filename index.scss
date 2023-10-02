@@ -1,155 +1,78 @@
-.quiz-footer {
-  display: flex;
-  justify-content: flex-end;
-  border-top: 0.5px solid #92929238;
-  padding-top: 0.3rem;
+.editorjs-code__container {
+  background-color: #cceeff44;
+  padding-bottom: 2rem;
+  position: relative;
 }
 
-.delete-icon-btn {
+.editorjs-code__langDisplay {
+  position: absolute;
+  height: 20px;
+  line-height: 20px;
+  font-size: 10px;
+  color: #999;
+  background-color: #dcdfe6;
+  padding: 3px 7px;
+  right: 0;
+  bottom: 0;
+  border-bottom-right-radius: 5px;
+  border-top-left-radius: 5px;
+  cursor: pointer;
+}
+
+.editorjs-code__copyButton {
+  position: absolute;
+  z-index: 2;
+  line-height: 20px;
+  background-color: #dcdfe6;
+  padding:4px 9px;
+  right: 0;
+  top: 0;
+  border: none;
+  border-bottom-left-radius: 5px;
+  border-top-right-radius: 5px;
+  cursor: pointer;
+}
+
+.cdx-editor-dropdown {
+  position: absolute;
   display: none;
+  bottom: 0;
+  right: 0;
+  margin-bottom: -2rem;
+  z-index: 1;
 }
 
-.quiz-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 5px;
-  border-radius: 3px;
-}
-
-.quiz-item__hoverable:hover {
-  background-color: rgb(245 245 245);
-  cursor: pointer;
-}
-
-.quiz-item__text {
-  margin: 0;
-  line-height: 25px;
-  width: 100%;
+.cdx-editor-dropdown__input {
+  padding: 8px;
+  font-size: 16px;
+  border: none;
   outline: none;
+  border-bottom: 2px solid #041e42;
 }
 
-.icon-button {
-  all: unset;
-  aspect-ratio: 1 / 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  border-radius: 100rem;
+.cdx-editor-dropdown__content {
+  width: 100%;
+  position: absolute;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  z-index: 1;
+  max-height: 200px;
+  overflow-y: auto;
 }
 
-.icon-button:hover {
-  background-color: rgb(236, 236, 236);
+.cdx-editor-dropdown__content a {
+  color: black;
+  padding: 8px 16px;
+  text-decoration: none;
+  display: block;
 }
 
-.icon-button__small {
-  --size: 1.6rem;
-  width: var(--size);
-  height: var(--size);
+.cdx-editor-dropdown__content a:hover {
+  background-color: #f1f1f1;
 }
 
-.icon-button__medium {
-  --size: 2rem;
-  width: var(--size);
-  height: var(--size);
-  font-size: 1.4rem;
-}
-
-.qt-button {
-  all: unset;
-  border: 1px solid gray;
-  padding: 0.4rem 0.7rem;
-  border-radius: 0.3rem;
-  cursor: pointer;
-}
-
-.cdx-quiz-error {
-  color: #dddd00;
-  padding: 0.5rem 0;
-}
-
-.qt-add-btn {
-  flex: 1;
-  text-align: center;
-  border: unset;
-}
-
-.qt-add-btn:hover {
-  background-color: #e0e0e0;
-}
-
-/* Custom Styles for radio/checkbox inputs */
-
-.quiz-item {
-  &:hover input ~ &__checkmark {
-    background-color: #ccc;
-  }
-
-  & input:checked ~ &__checkmark {
-    background-color: #2196F3;
-  }
-
-  & input:checked ~ &__checkmark::after {
-    display: block;
-  }
-
-  &__label {
-    position: relative;
-    width: 18px;
-    height: 18px;
-  }
-
-  & input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-  }
-
-  &__checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 18px;
-    width: 18px;
-    background-color: #eee;
-    cursor: pointer;
-
-    &--radio {
-      border-radius: 50%;
-    }
-
-    &--radio::after {
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: white;
-    }
-
-    &--checkbox::after {
-      left: 50%;
-      top: 50%;
-      translate: -50% -60%;
-      width: 4px;
-      height: 8px;
-      border: solid white;
-      border-width: 0 3px 3px 0;
-      -webkit-transform: rotate(45deg);
-      -ms-transform: rotate(45deg);
-      transform: rotate(45deg);
-    }
-
-    &::after {
-      content: "";
-      position: absolute;
-      display: none;
-    }
-  }
+.show {
+  display: block;
 }
 
 
