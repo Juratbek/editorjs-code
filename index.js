@@ -1,12 +1,16 @@
-import { EditorView } from "@codemirror/view"
-import { EditorState, Compartment } from "@codemirror/state"
-import {basicSetup} from "codemirror";
+import 'codemirror/mode/javascript/javascript';
+import 'codemirror/mode/python/python';
+import 'codemirror/mode/css/css';
+import 'codemirror/mode/go/go';
+import 'codemirror/mode/markdown/markdown';
+import 'codemirror/mode/htmlmixed/htmlmixed';
+import 'codemirror/mode/clike/clike';
+import 'codemirror/lib/codemirror'
 
-import {COMPLETED_COPY_BUTTON_SVG, COPY_BUTTON_SVG, LANGUAGES, Toolbox} from "./constants";
+import CodeMirror from 'codemirror';
+
+import {COMPLETED_COPY_BUTTON_SVG, COPY_BUTTON_SVG, Toolbox, LANGUAGES} from "./constants";
 import "./index.scss";
-
-const languageConf = new Compartment
-
 class Code {
 
   constructor(args) {
@@ -16,7 +20,7 @@ class Code {
     this.config = config;
     this.api = api;
     // this.settings = settings;
-    this.codeMirrorInctance = null
+    this.editor = null
   }
 
   static get isReadOnlySupported() {
@@ -33,24 +37,53 @@ class Code {
 
 
 
-  mountCodeMirror = async () => {
+  mountCodeMirror = async (element) => {
+    const langsMap = LANGUAGES.reduce((a, c) => {
+      return {
+        ...a,
+        [c.label]: c.value
+    }}, {})
 
-    this.codeMirrorInctance = new EditorView({
-      extensions: [
-          basicSetup,
-          EditorState.readOnly.of(this.readOnly),
-          LANGUAGES[this.data.language]()
-      ],
-      doc: this.data.code,
-      parent: this.container
-    })
+    this.editor = CodeMirror.fromTextArea(element, {
+      mode: this.data.language ? langsMap[this.data.language] : langsMap.javascript,
+      tabSize: 4,
+      styleActiveLine: { nonEmpty: true },
+      styleActiveSelected: true,
+      lineNumbers: true,
+      line: false,
+      autofocus: false,
+      styleSelectedText: true,
+      matchBrackets: true,
+      showCursorWhenSelecting: true,
+      theme: 'dracula',
+      autoCloseTags: true,
+      foldGutter: true,
+      dragDrop: true,
+      lint: true,
+      extraKeys: { 'Ctrl': 'autocomplete' },
+      hintOptions: {
+        completeSingle: false
+      },
+    });
+
+    setTimeout(() => {
+      // Focus the CodeMirror editor
+      this.editor.focus();
+      this.editor.setCursor(this.editor.lineCount(),0)
+      this.editor.refresh()
+    }, 100);
+
   }
 
   render() {
     this.container = document.createElement("div");
     this.container.className = "editorjs-code__container";
+    this.texarea = document.createElement('textarea')
+    this.texarea.classList.add('cdx-editor__textarea')
+    this.texarea.value = this.data.code
 
-    this.mountCodeMirror()
+    this.container.appendChild(this.texarea)
+    this.mountCodeMirror(this.texarea)
 
     this.langDisplay = document.createElement('div');
     this.langDisplay.classList.add('editorjs-code__langDisplay')
@@ -62,7 +95,7 @@ class Code {
     copyButton.addEventListener("click",async () => {
       copyButton.innerHTML = COMPLETED_COPY_BUTTON_SVG;
       try {
-        await navigator.clipboard.writeText(this.codeMirrorInctance.state.doc.toString());
+        await navigator.clipboard.writeText(this.editor.getValue());
       } finally {
         setTimeout(()=>{
           copyButton.innerHTML = COPY_BUTTON_SVG;
@@ -79,17 +112,30 @@ class Code {
     }))
 
     this.container.appendChild(languageDropdown)
+    this.languageDropdown = languageDropdown
 
     return this.container;
   }
 
-  // renderSettings = () => {
-  //   return renderSettings(this.settings, this._changeType, this);
-  // };
+  onSearchLanguages = () => {
+    const self = this
+    return function (e) {
+      const filter = e.target.value.toUpperCase();
+      const a = self.languageDropdown.getElementsByTagName('a');
+      for (let i = 0; i < a.length; i++) {
+        const txtValue = a[i].textContent || a[i].innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          a[i].style.display = '';
+        } else {
+          a[i].style.display = 'none';
+        }
+      }
+    }
+  }
 
   onPaste(event) {
     const code = event.detail.data;
-    this.codeMirrorInctance.setValue(code);
+    this.editor.setValue(code);
   }
 
   static get pasteConfig() {
@@ -98,39 +144,36 @@ class Code {
     };
   }
 
-  handleLanguageChange = (e) => {
-    this.data.language = e
-    this.langDisplay.innerText = e
-    console.log(e)
+  handleLanguageChange = (lang) => {
+    this.data.language = lang.label
+    this.langDisplay.innerText = lang.label
 
-    console.log(this.codeMirrorInctance)
-    console.log(LANGUAGES[e])
-    // this.codeMirrorInctance.dispatch({
-    //   effects: languageConf.reconfigure(LANGUAGES[e]())
-    // })
-
+    this.editor.setOption("mode", lang.value)
   }
 
   dropdownRender = () => {
     const wrapper = document.createElement("div");
     wrapper.className = "cdx-editor-dropdown";
     const input = document.createElement("input");
+
     input.className = "cdx-editor-dropdown__input";
     input.type = "text"
     input.id = "searchInput"
     input.placeholder = "Search language"
+    input.addEventListener('keyup', this.onSearchLanguages())
 
     const dropdownContent = document.createElement("div");
     dropdownContent.className = "cdx-editor-dropdown__content";
     dropdownContent.id = "dropdownContent"
-    Object.keys(LANGUAGES).forEach((lang) => {
+    LANGUAGES.forEach((lang) => {
       const item = document.createElement("a");
       item.addEventListener("click", () => {
         this.handleLanguageChange(lang)
         wrapper.classList.remove('show');
       })
       item.href = "#"
-      item.innerText = lang
+      item.innerText = lang.label
+      item.value = lang.value
       dropdownContent.appendChild(item)
     })
 
@@ -142,9 +185,8 @@ class Code {
 
 
   save(blockContent) {
-    console.log(blockContent)
     return {
-      code: this.codeMirrorInctance.state.doc.toString(),
+      code: this.editor.getValue(),
       language: this.data.language,
     };
   }

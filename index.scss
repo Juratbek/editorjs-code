@@ -1,6 +1,9 @@
+@import "~codemirror/theme/darcula.css";
+@import "~codemirror/theme/dracula.css";
+@import "~codemirror/lib/codemirror.css";
+
 .editorjs-code__container {
-  background-color: #cceeff44;
-  padding-bottom: 2rem;
+  padding-bottom: 1.625rem;
   position: relative;
 }
 
@@ -38,7 +41,7 @@
   display: none;
   bottom: 0;
   right: 0;
-  margin-bottom: -2rem;
+  margin-bottom: -2.25rem;
   z-index: 1;
 }
 
@@ -76,3 +79,17 @@
 }
 
 
+.cdx-editor__textarea {
+  min-height: 200px;
+  font-family: Menlo, Monaco, Consolas, Courier New, monospace;
+  color: #41314e;
+  line-height: 1.6em;
+  font-size: 12px;
+  background: #f8f7fa;
+  border: 1px solid #f1f1f4;
+  box-shadow: none;
+  white-space: pre;
+  word-wrap: normal;
+  overflow-x: auto;
+  resize: vertical;
+}
