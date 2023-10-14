@@ -78,6 +78,12 @@ class Code {
       },
     });
 
+    this.editor.on('keydown', (cm, event) => {
+      if (event.key === "Tab") {
+        event.stopPropagation();
+      }
+    });
+
     setTimeout(() => {
       // Focus the CodeMirror editor
       this.editor.focus();
