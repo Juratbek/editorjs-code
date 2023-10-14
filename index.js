@@ -43,7 +43,8 @@ class Code {
       dropdownInput: 'cdx-editor-dropdown__input',
       dropdownContent: 'cdx-editor-dropdown__content',
       langDisplay: 'cdx-editor__langDisplay',
-      copyButton: 'cdx-editor__copyButton'
+      copyButton: 'cdx-editor__copyButton',
+      textArea: 'cdx-editor__textarea'
     }
   }
 
@@ -90,7 +91,7 @@ class Code {
     this.container = document.createElement("div");
     this.container.className = this.CSS.codeContainer;
     this.texarea = document.createElement('textarea')
-    this.texarea.classList.add('cdx-editor__textarea')
+    this.texarea.classList.add(this.CSS.textArea)
     this.texarea.value = this.data.code
 
     this.container.appendChild(this.texarea)
@@ -118,7 +119,8 @@ class Code {
     this.container.appendChild(copyButton)
 
     const languageDropdown = this.dropdownRender()
-    this.langDisplay.addEventListener("click", (() => {
+    this.langDisplay.addEventListener("click", ((e) => {
+        e.stopPropagation()
         languageDropdown.classList.toggle('show')
     }))
 
@@ -190,6 +192,12 @@ class Code {
 
     wrapper.appendChild(input);
     wrapper.appendChild(dropdownContent)
+
+    document.addEventListener('click', function(e) {
+      if (!wrapper.contains(e.target)) {
+        wrapper.classList.remove('show');
+      }
+    });
 
     return wrapper
   }
