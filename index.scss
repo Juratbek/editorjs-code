@@ -2,12 +2,11 @@
 @import "~codemirror/theme/dracula.css";
 @import "~codemirror/lib/codemirror.css";
 
-.editorjs-code__container {
-  padding-bottom: 1.625rem;
+.cdx-editor__container {
   position: relative;
 }
 
-.editorjs-code__langDisplay {
+.cdx-editor__langDisplay {
   position: absolute;
   height: 20px;
   line-height: 20px;
@@ -17,12 +16,11 @@
   padding: 3px 7px;
   right: 0;
   bottom: 0;
-  border-bottom-right-radius: 5px;
   border-top-left-radius: 5px;
   cursor: pointer;
 }
 
-.editorjs-code__copyButton {
+.cdx-editor__copyButton {
   position: absolute;
   z-index: 2;
   line-height: 20px;
@@ -32,7 +30,6 @@
   top: 0;
   border: none;
   border-bottom-left-radius: 5px;
-  border-top-right-radius: 5px;
   cursor: pointer;
 }
 

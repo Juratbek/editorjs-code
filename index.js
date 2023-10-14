@@ -2,6 +2,7 @@ import 'codemirror/mode/javascript/javascript';
 import 'codemirror/mode/python/python';
 import 'codemirror/mode/css/css';
 import 'codemirror/mode/go/go';
+import 'codemirror/mode/sql/sql';
 import 'codemirror/mode/markdown/markdown';
 import 'codemirror/mode/htmlmixed/htmlmixed';
 import 'codemirror/mode/clike/clike';
@@ -35,6 +36,16 @@ class Code {
     return Toolbox;
   }
 
+  get CSS() {
+    return {
+      codeContainer: 'cdx-editor__container',
+      dropdown: 'cdx-editor-dropdown',
+      dropdownInput: 'cdx-editor-dropdown__input',
+      dropdownContent: 'cdx-editor-dropdown__content',
+      langDisplay: 'cdx-editor__langDisplay',
+      copyButton: 'cdx-editor__copyButton'
+    }
+  }
 
 
   mountCodeMirror = async (element) => {
@@ -77,7 +88,7 @@ class Code {
 
   render() {
     this.container = document.createElement("div");
-    this.container.className = "editorjs-code__container";
+    this.container.className = this.CSS.codeContainer;
     this.texarea = document.createElement('textarea')
     this.texarea.classList.add('cdx-editor__textarea')
     this.texarea.value = this.data.code
@@ -86,9 +97,9 @@ class Code {
     this.mountCodeMirror(this.texarea)
 
     this.langDisplay = document.createElement('div');
-    this.langDisplay.classList.add('editorjs-code__langDisplay')
+    this.langDisplay.classList.add(this.CSS.langDisplay)
     let copyButton = document.createElement('button')
-    copyButton.classList.add("editorjs-code__copyButton");
+    copyButton.classList.add(this.CSS.copyButton);
     copyButton.innerHTML = COPY_BUTTON_SVG;
     this.langDisplay.innerHTML = this.data.language
 
@@ -153,17 +164,17 @@ class Code {
 
   dropdownRender = () => {
     const wrapper = document.createElement("div");
-    wrapper.className = "cdx-editor-dropdown";
+    wrapper.className = this.CSS.dropdown;
     const input = document.createElement("input");
 
-    input.className = "cdx-editor-dropdown__input";
+    input.className = this.CSS.dropdownInput;
     input.type = "text"
     input.id = "searchInput"
     input.placeholder = "Search language"
     input.addEventListener('keyup', this.onSearchLanguages())
 
     const dropdownContent = document.createElement("div");
-    dropdownContent.className = "cdx-editor-dropdown__content";
+    dropdownContent.className = this.CSS.dropdownContent;
     dropdownContent.id = "dropdownContent"
     LANGUAGES.forEach((lang) => {
       const item = document.createElement("a");
