@@ -2,38 +2,36 @@
 @import "~codemirror/theme/dracula.css";
 @import "~codemirror/lib/codemirror.css";
 
-.editorjs-code__container {
-  padding-bottom: 1.625rem;
+.cdx-editor__container {
   position: relative;
 }
 
-.editorjs-code__langDisplay {
+.cdx-editor__langDisplay {
   position: absolute;
   height: 20px;
   line-height: 20px;
-  font-size: 10px;
-  color: #999;
-  background-color: #dcdfe6;
+  font-size: 11px;
+  color: #f1f1f1;
+  background-color: #4a4d5e;
   padding: 3px 7px;
   right: 0;
   bottom: 0;
-  border-bottom-right-radius: 5px;
   border-top-left-radius: 5px;
   cursor: pointer;
 }
 
-.editorjs-code__copyButton {
+.cdx-editor__copyButton {
   position: absolute;
   z-index: 2;
   line-height: 20px;
-  background-color: #dcdfe6;
-  padding:4px 9px;
+  background-color: #4a4d5e;
+  padding: 4px 9px;
   right: 0;
   top: 0;
   border: none;
   border-bottom-left-radius: 5px;
-  border-top-right-radius: 5px;
   cursor: pointer;
+  color: #f1f1f1;
 }
 
 .cdx-editor-dropdown {
@@ -77,7 +75,6 @@
 .show {
   display: block;
 }
-
 
 .cdx-editor__textarea {
   min-height: 200px;
