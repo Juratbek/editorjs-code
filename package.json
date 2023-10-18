@@ -1,7 +1,7 @@
 {
-  "name": "@juratbek/editorjs-quiz",
+  "name": "@juratbek/editorjs-code",
   "version": "1.0.0",
-  "description": "quiz plugin for editorjs",
+  "description": "code plugin for editorjs",
   "main": "./dist/bundle.js",
   "scripts": {
     "build": "webpack --mode production",
@@ -15,14 +15,14 @@
   },
   "keywords": [
     "editorjs",
-    "quiz"
+    "code"
   ],
   "author": "Juratbek",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Juratbek/editorjs-quiz/issues"
+    "url": "https://github.com/Juratbek/editorjs-code/issues"
   },
-  "homepage": "https://github.com/Juratbek/editorjs-quiz#readme",
+  "homepage": "https://github.com/Juratbek/editorjs-code#readme",
   "devDependencies": {
     "babel-loader": "^9.1.2",
     "css-loader": "^6.8.1",
