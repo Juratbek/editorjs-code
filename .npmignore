@@ -3,4 +3,5 @@ node_modules
 example
 webpack.config.js
 package-lock.json
+src
 .gitignore
