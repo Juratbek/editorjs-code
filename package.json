@@ -1,6 +1,6 @@
 {
   "name": "@juratbek/editorjs-code",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "code plugin for editorjs",
   "main": "./dist/bundle.js",
   "scripts": {
