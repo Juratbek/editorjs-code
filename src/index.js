@@ -18,6 +18,8 @@ import {
 } from "./constants";
 import "./index.scss";
 class Code {
+  #language = "javascript";
+
   constructor(args) {
     const { data, readOnly, config, api } = args;
     this.data = data;
@@ -25,6 +27,8 @@ class Code {
     this.config = config;
     this.api = api;
     this.editor = null;
+
+    this.#language = data.language ?? config.defaultLanguage ?? "javascript";
   }
 
   static get isReadOnlySupported() {
@@ -60,9 +64,7 @@ class Code {
     }, {});
 
     this.editor = CodeMirror.fromTextArea(element, {
-      mode: this.data.language
-        ? langsMap[this.data.language]
-        : langsMap.javascript,
+      mode: langsMap[this.#language],
       tabSize: 4,
       styleActiveLine: { nonEmpty: true },
       styleActiveSelected: true,
@@ -102,7 +104,7 @@ class Code {
     this.container.className = this.CSS.codeContainer;
     this.texarea = document.createElement("textarea");
     this.texarea.classList.add(this.CSS.textArea);
-    this.texarea.value = this.data.code;
+    this.texarea.value = this.data.code ?? "// Salom Dunyo";
 
     this.container.appendChild(this.texarea);
     this.mountCodeMirror(this.texarea);
@@ -112,7 +114,7 @@ class Code {
     let copyButton = document.createElement("button");
     copyButton.classList.add(this.CSS.copyButton);
     copyButton.innerHTML = COPY_BUTTON_SVG;
-    this.langDisplay.innerHTML = this.data.language;
+    this.langDisplay.innerHTML = this.#language;
 
     copyButton.addEventListener("click", async () => {
       copyButton.innerHTML = COMPLETED_COPY_BUTTON_SVG;
@@ -168,7 +170,7 @@ class Code {
   }
 
   handleLanguageChange = (lang) => {
-    this.data.language = lang.label;
+    this.#language = lang.label;
     this.langDisplay.innerText = lang.label;
 
     this.editor.setOption("mode", lang.value);
@@ -215,7 +217,7 @@ class Code {
   save(blockContent) {
     return {
       code: this.editor.getValue(),
-      language: this.data.language,
+      language: this.#language,
     };
   }
 }
