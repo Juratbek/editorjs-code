@@ -16,6 +16,7 @@ import {
   Toolbox,
   LANGUAGES,
 } from "./constants";
+import "./config.scss";
 import "./index.scss";
 class Code {
   #language = "javascript";
