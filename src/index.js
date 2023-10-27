@@ -98,7 +98,7 @@ class Code {
       // TODO: focus on the editor only when it is added as a block
       // we should not focus on the editor when an article is loaded and mountet
       // this.editor.focus();
-      this.editor.setCursor(this.editor.lineCount(), 0);
+      // this.editor.setCursor(this.editor.lineCount(), 0);
       this.editor.refresh();
     }, 100);
   };
