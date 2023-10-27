@@ -20,11 +20,12 @@ import "./config.scss";
 import "./index.scss";
 class Code {
   #language = "javascript";
+  #readOnly = false;
 
   constructor(args) {
     const { data, readOnly, config, api } = args;
     this.data = data;
-    this.readOnly = readOnly ?? false;
+    this.#readOnly = readOnly ?? false;
     this.config = config;
     this.api = api;
     this.editor = null;
@@ -81,6 +82,7 @@ class Code {
       dragDrop: true,
       lint: true,
       extraKeys: { Ctrl: "autocomplete" },
+      readOnly: this.#readOnly,
       hintOptions: {
         completeSingle: false,
       },
@@ -93,8 +95,9 @@ class Code {
     });
 
     setTimeout(() => {
-      // Focus the CodeMirror editor
-      this.editor.focus();
+      // TODO: focus on the editor only when it is added as a block
+      // we should not focus on the editor when an article is loaded and mountet
+      // this.editor.focus();
       this.editor.setCursor(this.editor.lineCount(), 0);
       this.editor.refresh();
     }, 100);
