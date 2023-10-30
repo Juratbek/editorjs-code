@@ -6,7 +6,6 @@ import "codemirror/mode/sql/sql";
 import "codemirror/mode/markdown/markdown";
 import "codemirror/mode/htmlmixed/htmlmixed";
 import "codemirror/mode/clike/clike";
-import "codemirror/lib/codemirror";
 
 import CodeMirror from "codemirror";
 
@@ -67,7 +66,7 @@ class Code {
 
     this.editor = CodeMirror.fromTextArea(element, {
       mode: langsMap[this.#language],
-      tabSize: 4,
+      tabSize: 2,
       styleActiveLine: { nonEmpty: true },
       styleActiveSelected: true,
       lineNumbers: true,

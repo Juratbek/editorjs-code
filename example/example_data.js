@@ -19,8 +19,10 @@ let example_data = {
     {
       type: "code",
       data: {
-        code: "console.log('Hello World!');",
-        language: "javascript",
+        code: `package main\n\nimport "fmt"\nfunc main() {
+            fmt.Println("hello world")
+        }`,
+        language: "go",
         showLineNumbers: true,
       },
     },
