@@ -134,10 +134,12 @@ class Code {
     this.container.appendChild(copyButton);
 
     const languageDropdown = this.dropdownRender();
-    this.langDisplay.addEventListener("click", (e) => {
-      e.stopPropagation();
-      languageDropdown.classList.toggle("show");
-    });
+    if (!this.#readOnly) {
+      this.langDisplay.addEventListener("click", (e) => {
+        e.stopPropagation();
+        languageDropdown.classList.toggle("show");
+      });
+    }
 
     this.container.appendChild(languageDropdown);
     this.languageDropdown = languageDropdown;
