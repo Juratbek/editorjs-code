@@ -59,6 +59,16 @@
   z-index: 1;
   max-height: 200px;
   overflow-y: auto;
+  margin: 0;
+  list-style: none;
+  padding: 0;
+
+  & li {
+    padding: 0.4rem 0.5rem;
+    &:hover {
+      background-color: #e5e5e5;
+    }
+  }
 }
 
 .cdx-editor-dropdown__content a {
