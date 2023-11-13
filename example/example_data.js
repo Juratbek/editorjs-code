@@ -19,12 +19,15 @@ let example_data = {
     {
       type: "code",
       data: {
-        code: `package main\n\nimport "fmt"\nfunc main() {
-            fmt.Println("hello world")
-        }`,
+        code: `package main\n\nimport "fmt"\n\nfunc main() {
+  fmt.Println("hello world");
+}`,
         language: "go",
         showLineNumbers: true,
       },
+    },
+    {
+      type: "code",
     },
   ],
 };
