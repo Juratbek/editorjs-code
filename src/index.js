@@ -134,10 +134,12 @@ class Code {
     this.container.appendChild(copyButton);
 
     const languageDropdown = this.dropdownRender();
-    this.langDisplay.addEventListener("click", (e) => {
-      e.stopPropagation();
-      languageDropdown.classList.toggle("show");
-    });
+    if (!this.#readOnly) {
+      this.langDisplay.addEventListener("click", (e) => {
+        e.stopPropagation();
+        languageDropdown.classList.toggle("show");
+      });
+    }
 
     this.container.appendChild(languageDropdown);
     this.languageDropdown = languageDropdown;
@@ -190,16 +192,15 @@ class Code {
     input.placeholder = "Search language";
     input.addEventListener("keyup", this.onSearchLanguages());
 
-    const dropdownContent = document.createElement("div");
+    const dropdownContent = document.createElement("ul");
     dropdownContent.className = this.CSS.dropdownContent;
     dropdownContent.id = "dropdownContent";
     LANGUAGES.forEach((lang) => {
-      const item = document.createElement("a");
+      const item = document.createElement("li");
       item.addEventListener("click", () => {
         this.handleLanguageChange(lang);
         wrapper.classList.remove("show");
       });
-      item.href = "#";
       item.innerText = lang.label;
       item.value = lang.value;
       dropdownContent.appendChild(item);
