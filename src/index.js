@@ -46,7 +46,7 @@ class Code {
 
   get CSS() {
     return {
-      codeContainer: "cdx-editor__container",
+      codeContainer: "cdx-editor__container code-editor__container",
       dropdown: "cdx-editor-dropdown",
       dropdownInput: "cdx-editor-dropdown__input",
       dropdownContent: "cdx-editor-dropdown__content",

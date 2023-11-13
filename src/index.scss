@@ -22,15 +22,16 @@
 .cdx-editor__copyButton {
   position: absolute;
   z-index: 2;
-  line-height: 20px;
   background-color: #4a4d5e;
-  padding: 4px 9px;
+  padding: 5px 7px;
   right: 0;
   top: 0;
   border: none;
   border-bottom-left-radius: 5px;
   cursor: pointer;
   color: #f1f1f1;
+  display: flex;
+  align-items: center;
 }
 
 .cdx-editor-dropdown {
@@ -88,4 +89,13 @@
   word-wrap: normal;
   overflow-x: auto;
   resize: vertical;
+}
+
+.code-editor__container .CodeMirror {
+  height: unset;
+  margin-top: 0.3rem;
+  margin-bottom: 0.3rem;
+  padding-bottom: 1rem;
+  padding-top: 0.4rem;
+  min-height: 60px;
 }
