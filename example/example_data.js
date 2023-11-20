@@ -21,7 +21,41 @@ let example_data = {
       data: {
         code: `package main\n\nimport "fmt"\n\nfunc main() {
   fmt.Println("hello world");
-}`,
+}
+func main() {
+  fmt.Println("hello world");
+}
+func main() {
+  fmt.Println("hello world");
+}
+func main() {
+  fmt.Println("hello world");
+}
+func main() {
+  fmt.Println("hello world");
+}
+func main() {
+  fmt.Println("hello world");
+}
+func main() {
+  fmt.Println("hello world");
+}
+func main() {
+  fmt.Println("hello world");
+}
+func main() {
+  fmt.Println("hello world");
+}
+func main() {
+  fmt.Println("hello world");
+}
+func main() {
+  fmt.Println("hello world");
+}
+func main() {
+  fmt.Println("hello world");
+}
+`,
         language: "go",
         showLineNumbers: true,
       },

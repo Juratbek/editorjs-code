@@ -2,71 +2,100 @@
 @import "~codemirror/theme/dracula.css";
 @import "~codemirror/lib/codemirror.css";
 
-.cdx-editor__container {
-  position: relative;
+$main-background-color: #1a1a1a;
+$main-border-radius: 8px;
+
+.cdx-editor {
+  &__container {
+    position: relative;
+    background-color: $main-background-color;
+    border-radius: $main-border-radius;
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
+  &__header {
+    height: 36px;
+    padding-left: 20px;
+    display: flex;
+    border-bottom: 1px solid rgba(69, 73, 74, 0.4);
+    justify-content: space-between;
+  }
+  &__langDisplay {
+    cursor: pointer;
+    color: #e8e9e9;
+    font-weight: 500;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+  }
+  &__copyButton {
+    cursor: pointer;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 20px;
+    min-width: 130px;
+    background-color: transparent;
+    border: none;
+    border-left: 1px solid rgba(69, 73, 74, 0.4);
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    border-top-right-radius: $main-border-radius;
+
+    &:hover {
+      background-color: #007aff;
+    }
+  }
 }
 
-.cdx-editor__langDisplay {
-  position: absolute;
-  line-height: 20px;
-  font-size: 11px;
-  color: #f1f1f1;
-  background-color: #4a4d5e;
-  padding: 3px 7px;
-  right: 0;
-  bottom: 0;
-  border-top-left-radius: 5px;
-  cursor: pointer;
-}
-
-.cdx-editor__copyButton {
-  position: absolute;
-  z-index: 2;
-  background-color: #4a4d5e;
-  padding: 5px 7px;
-  right: 0;
-  top: 0;
-  border: none;
-  border-bottom-left-radius: 5px;
-  cursor: pointer;
-  color: #f1f1f1;
-  display: flex;
-  align-items: center;
+.cm-s-dracula.CodeMirror,
+.cm-s-dracula .CodeMirror-gutters {
+  background-color: transparent !important;
 }
 
 .cdx-editor-dropdown {
   position: absolute;
   display: none;
-  bottom: 0;
-  right: 0;
   margin-bottom: -2.25rem;
   z-index: 1;
-}
+  background-color: $main-background-color;
+  color: white;
+  border-radius: $main-border-radius;
 
-.cdx-editor-dropdown__input {
-  padding: 8px;
-  font-size: 16px;
-  border: none;
-  outline: none;
-  border-bottom: 2px solid #041e42;
+  &__input {
+    padding: 8px;
+    font-size: 16px;
+    border: none;
+    outline: none;
+    border: 1px solid hsla(0, 0%, 87%, 0.5);
+    background-color: inherit;
+    color: white;
+    border-top-right-radius: $main-border-radius;
+    border-top-left-radius: $main-border-radius;
+  }
 }
 
 .cdx-editor-dropdown__content {
   width: 100%;
   position: absolute;
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
+  border: 1px solid hsla(0, 0%, 87%, 0.5);
   z-index: 1;
   max-height: 200px;
   overflow-y: auto;
   margin: 0;
   list-style: none;
   padding: 0;
+  background-color: inherit;
+  border-bottom-right-radius: $main-border-radius;
+  border-bottom-left-radius: $main-border-radius;
 
   & li {
     padding: 0.4rem 0.5rem;
     &:hover {
-      background-color: #e5e5e5;
+      background-color: #2f2f2f;
     }
   }
 }
@@ -87,12 +116,31 @@
 }
 
 .cdx-editor__textarea {
+  &-container {
+    min-height: 60px;
+    max-height: 320px;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      background: var(--black-400, #45494a);
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+      padding: 100px;
+    }
+  }
+
   min-height: 200px;
   font-family: Menlo, Monaco, Consolas, Courier New, monospace;
   color: #41314e;
   line-height: 1.6em;
   font-size: 12px;
-  background: #f8f7fa;
   border: 1px solid #f1f1f4;
   box-shadow: none;
   white-space: pre;
@@ -103,9 +151,5 @@
 
 .code-editor__container .CodeMirror {
   height: unset;
-  margin-top: 0.3rem;
-  margin-bottom: 0.3rem;
-  padding-bottom: 1rem;
-  padding-top: 0.4rem;
-  min-height: 60px;
+  padding-left: 16px;
 }

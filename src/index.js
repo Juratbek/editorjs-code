@@ -9,14 +9,11 @@ import "codemirror/mode/clike/clike";
 
 import CodeMirror from "codemirror";
 
-import {
-  COMPLETED_COPY_BUTTON_SVG,
-  COPY_BUTTON_SVG,
-  Toolbox,
-  LANGUAGES,
-} from "./constants";
+import { Toolbox, LANGUAGES } from "./constants";
+import { CopyIcon, DoneIcon } from "./icons";
 import "./config.scss";
 import "./index.scss";
+
 class Code {
   #language = "javascript";
   #readOnly = false;
@@ -52,7 +49,9 @@ class Code {
       dropdownContent: "cdx-editor-dropdown__content",
       langDisplay: "cdx-editor__langDisplay",
       copyButton: "cdx-editor__copyButton",
+      header: "cdx-editor__header",
       textArea: "cdx-editor__textarea",
+      textAreaContainer: "cdx-editor__textarea-container",
     };
   }
 
@@ -69,7 +68,7 @@ class Code {
       tabSize: 2,
       styleActiveLine: { nonEmpty: true },
       styleActiveSelected: true,
-      lineNumbers: true,
+      lineNumbers: false,
       line: false,
       autofocus: false,
       styleSelectedText: true,
@@ -102,36 +101,41 @@ class Code {
     }, 100);
   };
 
-  render() {
-    this.container = document.createElement("div");
-    this.container.className = this.CSS.codeContainer;
-    this.texarea = document.createElement("textarea");
-    this.texarea.classList.add(this.CSS.textArea);
-    this.texarea.value = this.data.code ?? "// Salom Dunyo";
+  renderHeader() {
+    function renderCopyButton(icon, text) {
+      copyButton.innerHTML = "";
+      const span = document.createElement("span");
+      span.innerHTML = icon;
+      span.style.display = "flex";
+      span.style.alignItems = "center";
+      copyButton.appendChild(span);
+      copyButton.append(text);
+    }
 
-    this.container.appendChild(this.texarea);
-    this.mountCodeMirror(this.texarea);
+    this.header = document.createElement("div");
+    this.header.classList.add(this.CSS.header);
 
-    this.langDisplay = document.createElement("div");
+    this.langDisplay = document.createElement("span");
     this.langDisplay.classList.add(this.CSS.langDisplay);
-    let copyButton = document.createElement("button");
-    copyButton.classList.add(this.CSS.copyButton);
-    copyButton.innerHTML = COPY_BUTTON_SVG;
+    this.header.appendChild(this.langDisplay);
     this.langDisplay.innerHTML = this.#language;
 
+    let copyButton = document.createElement("button");
+    copyButton.classList.add(this.CSS.copyButton);
+    renderCopyButton(CopyIcon, "Nusxalash");
+
     copyButton.addEventListener("click", async () => {
-      copyButton.innerHTML = COMPLETED_COPY_BUTTON_SVG;
+      renderCopyButton(DoneIcon, "Nusxalandi");
       try {
         await navigator.clipboard.writeText(this.editor.getValue());
       } finally {
         setTimeout(() => {
-          copyButton.innerHTML = COPY_BUTTON_SVG;
+          renderCopyButton(CopyIcon, "Nusxalash");
         }, 1000);
       }
     });
 
-    this.container.appendChild(this.langDisplay);
-    this.container.appendChild(copyButton);
+    this.header.appendChild(copyButton);
 
     const languageDropdown = this.dropdownRender();
     if (!this.#readOnly) {
@@ -143,6 +147,24 @@ class Code {
 
     this.container.appendChild(languageDropdown);
     this.languageDropdown = languageDropdown;
+    this.container.appendChild(this.header);
+  }
+
+  render() {
+    this.container = document.createElement("div");
+    this.container.className = this.CSS.codeContainer;
+
+    this.renderHeader();
+
+    this.texarea = document.createElement("textarea");
+    this.texarea.classList.add(this.CSS.textArea);
+    this.texarea.value = this.data.code ?? "// Salom Dunyo";
+
+    const textareaContainer = document.createElement("div");
+    textareaContainer.classList.add(this.CSS.textAreaContainer);
+    textareaContainer.appendChild(this.texarea);
+    this.container.appendChild(textareaContainer);
+    this.mountCodeMirror(this.texarea);
 
     return this.container;
   }
@@ -151,7 +173,7 @@ class Code {
     const self = this;
     return function (e) {
       const filter = e.target.value.toUpperCase();
-      const a = self.languageDropdown.getElementsByTagName("a");
+      const a = self.languageDropdown.getElementsByTagName("li");
       for (let i = 0; i < a.length; i++) {
         const txtValue = a[i].textContent || a[i].innerText;
         if (txtValue.toUpperCase().indexOf(filter) > -1) {
