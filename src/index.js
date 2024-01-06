@@ -87,7 +87,11 @@ class Code {
     });
 
     this.editor.on("keydown", (cm, event) => {
-      if (event.key === "Tab") {
+      if (
+        event.key === "Tab" ||
+        event.key === "ArrowRight" ||
+        event.key === "ArrowDown"
+      ) {
         event.stopPropagation();
       }
     });

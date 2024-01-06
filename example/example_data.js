@@ -62,6 +62,9 @@ func main() {
     },
     {
       type: "code",
+      data: {
+        code: "console.log('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias ut architecto cumque laudantium, corrupti ducimus? Quia, odit modi eligendi sit, culpa blanditiis aperiam alias, quae inventore praesentium officia dolore distinctio.')",
+      },
     },
   ],
 };

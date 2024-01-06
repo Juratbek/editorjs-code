@@ -13,6 +13,7 @@ $main-border-radius: 8px;
     margin-top: 8px;
     margin-bottom: 8px;
   }
+
   &__header {
     height: 36px;
     padding-left: 20px;
@@ -20,6 +21,7 @@ $main-border-radius: 8px;
     border-bottom: 1px solid rgba(69, 73, 74, 0.4);
     justify-content: space-between;
   }
+
   &__langDisplay {
     cursor: pointer;
     color: #e8e9e9;
@@ -28,6 +30,7 @@ $main-border-radius: 8px;
     display: flex;
     align-items: center;
   }
+
   &__copyButton {
     cursor: pointer;
     color: white;
@@ -39,7 +42,6 @@ $main-border-radius: 8px;
     background-color: transparent;
     border: none;
     border-left: 1px solid rgba(69, 73, 74, 0.4);
-    align-items: center;
     gap: 12px;
     font-size: 14px;
     font-weight: 500;
@@ -68,7 +70,6 @@ $main-border-radius: 8px;
   &__input {
     padding: 8px;
     font-size: 16px;
-    border: none;
     outline: none;
     border: 1px solid hsla(0, 0%, 87%, 0.5);
     background-color: inherit;
@@ -94,6 +95,7 @@ $main-border-radius: 8px;
 
   & li {
     padding: 0.4rem 0.5rem;
+
     &:hover {
       background-color: #2f2f2f;
     }
@@ -137,7 +139,11 @@ $main-border-radius: 8px;
   }
 
   min-height: 200px;
-  font-family: Menlo, Monaco, Consolas, Courier New, monospace;
+  font-family: Menlo,
+  Monaco,
+  Consolas,
+  Courier New,
+  monospace;
   color: #41314e;
   line-height: 1.6em;
   font-size: 12px;
@@ -151,5 +157,5 @@ $main-border-radius: 8px;
 
 .code-editor__container .CodeMirror {
   height: unset;
-  padding-left: 16px;
+  // padding-left: 16px;
 }
