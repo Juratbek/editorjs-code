@@ -34,6 +34,7 @@
     "webpack-dev-server": "^4.15.1"
   },
   "dependencies": {
-    "codemirror": "^5.65.15"
+    "codemirror": "^5.65.15",
+    "html-to-text": "^9.0.5"
   }
 }

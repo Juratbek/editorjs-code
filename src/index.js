@@ -6,6 +6,7 @@ import "codemirror/mode/sql/sql";
 import "codemirror/mode/markdown/markdown";
 import "codemirror/mode/htmlmixed/htmlmixed";
 import "codemirror/mode/clike/clike";
+import { convert } from "html-to-text";
 
 import CodeMirror from "codemirror";
 
@@ -178,24 +179,31 @@ class Code {
     return function (e) {
       const filter = e.target.value.toUpperCase();
       const a = self.languageDropdown.getElementsByTagName("li");
-      for (let i = 0; i < a.length; i++) {
-        const txtValue = a[i].textContent || a[i].innerText;
+      for (const element of a) {
+        const txtValue = element.textContent || element.innerText;
         if (txtValue.toUpperCase().indexOf(filter) > -1) {
-          a[i].style.display = "";
+          element.style.display = "";
         } else {
-          a[i].style.display = "none";
+          element.style.display = "none";
         }
       }
     };
   };
 
   onPaste(event) {
-    const code = event.detail.data;
-    this.editor.setValue(code);
+    switch (event.type) {
+      case "pattern":
+      case "tag":
+        const code = event.detail.data?.innerHTML;
+        const htmlCode = convert(code);
+        this.editor.setValue(htmlCode);
+        break;
+    }
   }
 
   static get pasteConfig() {
     return {
+      tags: ["PRE", "CODE"],
       patterns: { code: /```([\s\S]+?)```/ },
     };
   }

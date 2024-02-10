@@ -156,6 +156,13 @@ $main-border-radius: 8px;
   resize: vertical;
 }
 
-.code-editor__container .CodeMirror {
-  height: unset;
+.code-editor__container {
+
+  .CodeMirror {
+    height: unset;
+
+    &-sizer {
+      // max-width: 300px;
+    }
+  }
 }
