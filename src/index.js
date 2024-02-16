@@ -193,17 +193,18 @@ class Code {
   onPaste(event) {
     switch (event.type) {
       case "pattern":
-      case "tag":
+      case "tag": {
         const code = event.detail.data?.innerHTML;
         const htmlCode = convert(code);
         this.editor.setValue(htmlCode);
         break;
+      }
     }
   }
 
   static get pasteConfig() {
     return {
-      tags: ["PRE", "CODE"],
+      tags: ["PRE"],
       patterns: { code: /```([\s\S]+?)```/ },
     };
   }
