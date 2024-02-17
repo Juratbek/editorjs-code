@@ -204,8 +204,14 @@ class Code {
 
   static get pasteConfig() {
     return {
-      tags: ["PRE"],
+      tags: ["PRE", "BR"],
       patterns: { code: /```([\s\S]+?)```/ },
+    };
+  }
+
+  static get sanitize() {
+    return {
+      br: {},
     };
   }
 
